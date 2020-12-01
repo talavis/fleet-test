@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         name: menu-aggregator
-        version: 20.07.24a
+        version: 20.12.01
     spec:
       containers:
         - name: menu-frontend

@@ -13,7 +13,7 @@ spec:
     - fleet-menu.dckube.scilifelab.se
     secretName: menu-aggregator-tls
   rules:
-    - host: fleet-menu.menu.dckube.scilifelab.se
+    - host: fleet-menu.dckube.scilifelab.se
       http:
         paths:
           - path: /api/
