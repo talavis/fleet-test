@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: menu-aggregator
+  namespace: fleet-menu
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-issuer"
+spec:
+  tls:
+  - hosts:
+    - fleet-menu.dckube.scilifelab.se
+    secretName: menu-aggregator-tls
+  rules:
+    - host: fleet-menu.menu.dckube.scilifelab.se
+      http:
+        paths:
+          - path: /api/
+            backend:
+              serviceName: menu-aggregator
+              servicePort: 8000
+          - path: /
+            backend:
+              serviceName: menu-aggregator
+              servicePort: 80

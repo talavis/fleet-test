@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: menu-agg-conf
+  namespace: fleet-menu
+data:
+  api-url: /api

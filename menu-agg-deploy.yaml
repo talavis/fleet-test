@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-aggregator
+  namespace: fleet-menu
+spec:
+  selector:
+    matchLabels:
+      name: menu-aggregator
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: menu-aggregator
+        version: 20.07.24a
+    spec:
+      containers:
+        - name: menu-frontend
+          image: scilifelabdatacentre/menu-frontend:latest
+          resources:
+            limits:
+              cpu: 500m
+              memory: 100Mi
+            requests:
+              cpu: 200m
+              memory: 60Mi
+          ports:
+            - containerPort: 80
+          env:
+            - name: API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: menu-agg-conf
+                  key: api-url
+          readinessProbe:
+            httpGet:
+              path: /
+              scheme: HTTP
+              port: 80
+        - name: menu-backend
+          image: scilifelabdatacentre/menu-backend:latest
+          resources:
+            limits:
+              cpu: 800m
+              memory: 100Mi
+            requests:
+              cpu: 500m
+              memory: 100Mi
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /api/
+              scheme: HTTP
+              port: 8000

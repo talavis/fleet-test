@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fleet-menu
+  labels:
+    name: fleet-menu
